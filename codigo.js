@@ -2,7 +2,7 @@
 
 let data = [];
 
-const url= 'https://rickandmortyapi.com/api/character';
+export const url= 'https://rickandmortyapi.com/api/character';
 
 
 
@@ -20,11 +20,17 @@ const getAllData = async ()=> {
 }
 
 const showAll = document.querySelector('#showAll');
-showAll.className='btn btn-primary d-block ms-auto me-auto my-3'
-showAll.addEventListener('click',()=>{
-    getAllData();
-    showAll.classList.add('d-none');
-})
+
+const showAllButton = ()=>{
+    if(showAll){
+        showAll.className='btn btn-primary d-block ms-auto me-auto my-3'
+        showAll.addEventListener('click',()=>{
+            getAllData();
+            showAll.classList.add('d-none');
+        })
+    }
+    
+}
 
 
 
@@ -86,6 +92,14 @@ const makeCard = (personaje)=>{
     deleteButon.addEventListener('click',(e)=>{
         showNewData(id);
     })
+
+    const newPageButton= document.createElement('button');
+    newPageButton.textContent= 'newPage';
+    newPageButton.className='btn btn-success m-3 d-block ms-auto me-auto';
+    newPageButton.addEventListener('click',()=>{
+        window.location.assign(`./newPage.html?id=${id}`);
+    })
+
     const modalButton= document.createElement('button');
     modalButton.textContent='modalCard';
     modalButton.className='btn btn-primary m-3 d-block ms-auto me-auto';
@@ -95,16 +109,12 @@ const makeCard = (personaje)=>{
 
     tarjeta.appendChild(imageCharacter);
     tarjeta.appendChild(nameCharacter);
+    tarjeta.appendChild(newPageButton);
     tarjeta.appendChild(modalButton);
     tarjeta.appendChild(deleteButon);
 
     return tarjeta
 }
-
-
-
-
-
 
 const showCards = (cards)=>{
 
@@ -115,6 +125,7 @@ const showCards = (cards)=>{
 
 }
 
+showAllButton();
 
 
 
